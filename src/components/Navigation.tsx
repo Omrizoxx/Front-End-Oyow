@@ -33,7 +33,7 @@ const Navigation = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="text-2xl font-serif font-bold">
-            <span className="gradient-text">Wanderlust</span>
+            <span className="gradient-text">Oyow</span>
             <span className={isScrolled ? 'text-foreground' : 'text-cream'}>
               Adventures
             </span>

@@ -35,13 +35,13 @@ const About = () => {
             </h2>
             
             <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-              For over a decade, Wanderlust Adventures has been crafting extraordinary 
+              For over a decade, Oyow Adventures has been crafting extraordinary 
               travel experiences that go beyond the ordinary. We believe that true luxury 
               lies not just in comfort, but in the transformative power of authentic adventure.
             </p>
 
             <p className="text-lg text-muted-foreground mb-12 leading-relaxed">
-              From the pristine wilderness of Patagonia to the vibrant savannas of Africa, 
+              From the pristine wilderness of The Mara to the vibrant beaches along the coast, 
               we curate journeys that respect local cultures, protect fragile ecosystems, 
               and create memories that last a lifetime.
             </p>
@@ -88,7 +88,7 @@ const About = () => {
             <div className="text-muted-foreground">Destinations</div>
           </div>
           <div className="text-center">
-            <div className="text-4xl font-serif font-bold gradient-text mb-2">15</div>
+            <div className="text-4xl font-serif font-bold gradient-text mb-2">7</div>
             <div className="text-muted-foreground">Years Experience</div>
           </div>
           <div className="text-center">
