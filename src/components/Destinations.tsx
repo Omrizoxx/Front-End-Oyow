@@ -14,6 +14,15 @@ import zanzibar from '@/assets/zanzibar.jpg'
 import lamu from '@/assets/lamu.jpg'
 import magadi from '@/assets/lake magadi.jpg'
 import chyulu from '@/assets/chyulu.jpg'
+import React from 'react';
+import Modal from './modals/modal';
+
+interface BookingForm {
+  name: string;
+  email: string;
+  date: string;
+}
+
 
 const Destinations = () => {
   const destinations = [
@@ -154,6 +163,19 @@ const Destinations = () => {
     },
   ];
 
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("Booking data", formData)
+    setIsModalOpen(false);
+  };
+
+  const [formData, setFormData] = React.useState<BookingForm>({
+                        name: "",
+                        email: "",
+                        date: "",
+                    });
+
   return (
     <section id="destinations" className="section-padding bg-background">
       <div className="max-w-7xl mx-auto">
@@ -165,7 +187,7 @@ const Destinations = () => {
             Journey to extraordinary places where luxury meets adventure, 
             and every moment becomes a treasured memory.
           </p>
-        </div>
+      </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {destinations.map((destination) => (
@@ -184,7 +206,7 @@ const Destinations = () => {
                   <Star className="w-4 h-4 fill-gold text-gold" />
                   <span className="text-sm font-medium">{destination.rating}</span>
                 </div>
-              </div>
+        </div>
 
               {/* Content */}
               <div className="p-6">
@@ -210,7 +232,7 @@ const Destinations = () => {
                       {highlight}
                     </span>
                   ))}
-                </div>
+                  </div>
 
                 <button className="w-full btn-outline-luxury">
                   Explore Destination

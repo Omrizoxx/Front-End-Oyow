@@ -1,7 +1,10 @@
 import { ChevronDown } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import heroImage from '@/assets/hero-mountains.jpg';
 
 const Hero = () => {
+  const navigate = useNavigate();
+  
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
@@ -28,10 +31,10 @@ const Hero = () => {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-          <button className="btn-luxury text-lg">
+          <button className="btn-luxury text-lg" onClick={() => navigate('/Html/Destinations.html')}>
             Explore Destinations
           </button>
-          <button className="btn-outline-luxury text-lg">
+          <button className="btn-outline-luxury text-lg" onClick={() => navigate('/Html/Experiences.html')}>
             View Experiences
           </button>
         </div>
