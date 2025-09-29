@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:3000/api';
+const API_BASE_URL = 'http://localhost:3001/api';
 
 // Types
 export interface Tour {
@@ -60,6 +60,9 @@ export const api = {
 
   // Contact
   async submitContact(contactData: ContactData) {
+    console.log('API: Submitting contact to:', `${API_BASE_URL}/contact`);
+    console.log('API: Contact data:', contactData);
+    
     const response = await fetch(`${API_BASE_URL}/contact`, {
       method: 'POST',
       headers: {
@@ -67,7 +70,16 @@ export const api = {
       },
       body: JSON.stringify(contactData),
     });
-    if (!response.ok) throw new Error('Failed to submit contact form');
+    
+    console.log('API: Response status:', response.status);
+    console.log('API: Response ok:', response.ok);
+    
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('API: Error response:', errorText);
+      throw new Error(`Failed to submit contact form: ${response.status} ${errorText}`);
+    }
+    
     return response.json();
   },
 

@@ -69,12 +69,18 @@ export default function Contact() {
 
 		setIsSubmitting(true);
 		try {
+			console.log('Submitting contact form:', form);
 			// Submit to server
-			await api.submitContact(form as ContactData);
+			const result = await api.submitContact(form as ContactData);
+			console.log('Contact form submitted successfully:', result);
 			setSubmitStatus('success');
 			setForm(initialForm);
 		} catch (error) {
 			console.error('Contact form error:', error);
+			console.error('Error details:', {
+				message: error instanceof Error ? error.message : 'Unknown error',
+				formData: form
+			});
 			setSubmitStatus('error');
 		} finally {
 			setIsSubmitting(false);
