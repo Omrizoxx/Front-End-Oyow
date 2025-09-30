@@ -10,16 +10,6 @@ export default defineConfig(({ mode }) => ({
     port: 3000,
     allowedHosts: ["front-end-oyow-oro0.onrender.com"],
   },
-  build: {
-    rollupOptions: {
-      input: {
-        main: path.resolve(__dirname, "index.html"),
-        contact: path.resolve(__dirname, "contact.html"),
-        about: path.resolve(__dirname, "about.html"),
-        // Add more entries as needed
-      },
-    },
-  },
   plugins: [react()],
   resolve: {
     alias: {
