@@ -11,10 +11,6 @@ const Index = () => {
     <div className="smooth-scroll">
       <Navigation />
       <Hero />
-      
-      
-      
-      
       <Footer />
     </div>
   );

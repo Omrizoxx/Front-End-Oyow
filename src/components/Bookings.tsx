@@ -2,9 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { Calendar, Clock, MapPin, Users, Star, CheckCircle } from 'lucide-react';
 import { useTours } from '@/hooks/useTours';
 import { api, BookingData } from '@/services/api';
-import beachImage from '@/assets/beach-paradise.jpg';
+import beachImage from '@/assets/diani.jpg';
 import safariImage from '@/assets/destination-safari.jpg';
-import mountainImage from '@/assets/mountain-adventure.jpg';
+import mountainImage from '@/assets/experience-mountain.jpg';
+import oceanImage from '@/assets/destination-ocean.jpg';
+import amboseliImage from '@/assets/amboseli.jpg';
+import bwindiImage from '@/assets/bwindi.jpg';
+import chyuluImage from '@/assets/chyulu.jpg';
+import craterImage from '@/assets/crater.jpg';
+import dianiImage from '@/assets/diani.jpg';
+import kakamegaImage from '@/assets/kakamega.jpg';
+import lamuImage from '@/assets/lamu.jpg';
+import mountKiliImage from '@/assets/mount kili.jpg';
+import nairobiParkImage from '@/assets/Nairobi park.jpg';
+import watamuImage from '@/assets/watamu.jpg';
+import wilderMaraImage from '@/assets/wilder-mara2.jpg';
+import zanzibarImage from '@/assets/zanzibar.jpg';
+import lakeMagadiImage from '@/assets/lake magadi.jpg';
 
 const Bookings = () => {
   const { tours, loading, error } = useTours();
@@ -20,13 +34,51 @@ const Bookings = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
+  // Function to get the appropriate image for each tour
+  const getTourImage = (tourTitle: string) => {
+    const title = tourTitle.toLowerCase();
+    
+    // Specific destination matches
+    if (title.includes('amboseli')) return amboseliImage;
+    if (title.includes('bwindi')) return bwindiImage;
+    if (title.includes('chyulu')) return chyuluImage;
+    if (title.includes('crater')) return craterImage;
+    if (title.includes('diani')) return dianiImage;
+    if (title.includes('kakamega')) return kakamegaImage;
+    if (title.includes('lamu')) return lamuImage;
+    if (title.includes('nairobi') || title.includes('park')) return nairobiParkImage;
+    if (title.includes('watamu')) return watamuImage;
+    if (title.includes('zanzibar')) return zanzibarImage;
+    if (title.includes('mara') || title.includes('wilder')) return wilderMaraImage;
+    if (title.includes('kili') || title.includes('kilimanjaro') || title.includes('mount')) return mountKiliImage;
+    if (title.includes('magadi') || title.includes('lake')) return lakeMagadiImage;
+    
+    // Category-based matches
+    if (title.includes('beach') || title.includes('coast') || title.includes('ocean')) return oceanImage;
+    if (title.includes('safari') || title.includes('wildlife') || title.includes('game')) return safariImage;
+    if (title.includes('mountain') || title.includes('hiking') || title.includes('climbing')) return mountainImage;
+    if (title.includes('adventure') || title.includes('expedition')) return mountainImage;
+    
+    // Fallback to a default image
+    return beachImage;
+  };
+
   const handleBookingSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus('idle');
 
+    console.log('Submitting booking with data:', {
+      tourId: selectedTour._id,
+      name: bookingData.name,
+      email: bookingData.email,
+      date: bookingData.date,
+      phone: bookingData.phone,
+      specialRequests: bookingData.specialRequests
+    });
+
     try {
-      await api.createBooking({
+      const result = await api.createBooking({
         tourId: selectedTour._id,
         name: bookingData.name,
         email: bookingData.email,
@@ -35,11 +87,23 @@ const Bookings = () => {
         specialRequests: bookingData.specialRequests
       });
       
+      console.log('Booking successful:', result);
       setSubmitStatus('success');
       setIsModalOpen(false);
       setBookingData({ name: '', email: '', date: '', phone: '', specialRequests: '' });
     } catch (error) {
       console.error('Booking error:', error);
+      console.error('Error details:', {
+        message: error instanceof Error ? error.message : 'Unknown error',
+        bookingData: {
+          tourId: selectedTour._id,
+          name: bookingData.name,
+          email: bookingData.email,
+          date: bookingData.date,
+          phone: bookingData.phone,
+          specialRequests: bookingData.specialRequests
+        }
+      });
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -117,11 +181,23 @@ const Bookings = () => {
                 className="group bg-card rounded-xl overflow-hidden shadow-luxury hover:shadow-gold transition-all duration-500 transform hover:scale-105"
               >
                 {/* Image */}
-                <div className="relative h-64 bg-gradient-to-br from-forest-green to-twilight-blue flex items-center justify-center">
-                  <div className="text-cream text-center">
-                    <MapPin className="w-12 h-12 mx-auto mb-2" />
-                    <p className="text-lg font-medium">{tour.location}</p>
+                <div className="relative h-64 overflow-hidden">
+                  <img 
+                    src={getTourImage(tour.title)} 
+                    alt={tour.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                  
+                  {/* Location overlay */}
+                  <div className="absolute bottom-4 left-4 text-cream">
+                    <div className="flex items-center gap-2">
+                      <MapPin className="w-4 h-4" />
+                      <span className="text-sm font-medium">{tour.location}</span>
+                    </div>
                   </div>
+                  
+                  {/* Rating overlay */}
                   <div className="absolute top-4 right-4 bg-background/90 backdrop-blur-sm rounded-full px-3 py-1 flex items-center gap-1">
                     <Star className="w-4 h-4 fill-gold text-gold" />
                     <span className="text-sm font-medium">{tour.rating}</span>

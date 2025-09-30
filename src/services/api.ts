@@ -14,6 +14,8 @@ export interface BookingData {
   name: string;
   email: string;
   date: string;
+  phone?: string;
+  specialRequests?: string;
 }
 
 export interface ContactData {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Shield, Users, Radio, FirstAid, Camera, Phone, MapPin, Clock, CheckCircle, Star, ArrowLeft } from 'lucide-react';
+import { Shield, Users, Radio, Camera, Phone, MapPin, Clock, CheckCircle, Star, ArrowLeft } from 'lucide-react';
 
 interface SecurityTeamMember {
   id: string;
